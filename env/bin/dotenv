@@ -1,4 +1,4 @@
-#!/home/rebeca/Itec/Proyectos/env/bin/python3
+#!/home/rebeca/Itec/Efi1_Python/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
