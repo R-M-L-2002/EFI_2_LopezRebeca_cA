@@ -1,5 +1,6 @@
 # Clonar el proyecto
 https://github.com/R-M-L-2002/EFI_2_LopezRebeca_cA.git
+
 cd EFI_2_LopezRebeca_cA
 
 # Crear el entorno virtual
