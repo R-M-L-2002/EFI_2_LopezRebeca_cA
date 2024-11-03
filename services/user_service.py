@@ -1,35 +1,20 @@
 from repositories.user_repository import UserRepository
-from models import User
+from werkzeug.security import generate_password_hash
 
 class UserService:
     def __init__(self):
-        self.repository = UserRepository()
+        self.user_repository = UserRepository()
 
-    def listar_usuarios(self):
-        return self.repository.get_all()
+    def fetch_users(self):
+        return self.user_repository.get_all_users()
 
-    def crear_usuario(self, username, password, role='user'):
-        nuevo_usuario = User(username=username, role=role)
-        nuevo_usuario.set_password(password)
-        self.repository.add(nuevo_usuario)
+    def add_user(self, username, password):
+        hashed_password = generate_password_hash(password, method='sha256')
+        return self.user_repository.create_user(username, hashed_password)
 
-    def editar_usuario(self, user_id, username, password=None, role=None):
-        usuario = self.repository.get_by_id(user_id)
-        if usuario:
-            usuario.username = username
-            if password:
-                usuario.set_password(password)
-            if role:
-                usuario.role = role
-            self.repository.update()
+    def modify_user(self, user_id, username, password):
+        hashed_password = generate_password_hash(password, method='sha256')
+        return self.user_repository.update_user(user_id, username, hashed_password)
 
-    def eliminar_usuario(self, user_id):
-        usuario = self.repository.get_by_id(user_id)
-        if usuario:
-            self.repository.delete(usuario)
-
-    def verificar_usuario(self, username, password):
-        usuario = User.query.filter_by(username=username).first()
-        if usuario and usuario.check_password(password):
-            return usuario
-        return None
+    def remove_user(self, user_id):
+        return self.user_repository.delete_user(user_id)

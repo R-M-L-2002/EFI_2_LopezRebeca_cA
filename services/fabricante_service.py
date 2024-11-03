@@ -17,7 +17,7 @@ class FabricanteService:
         if fabricante:
             fabricante.nombre = nombre
             fabricante.pais_origen = pais_origen
-            self.repository.update()
+            self.repository.update(fabricante)
 
     def eliminar_fabricante(self, fabricante_id):
         fabricante = self.repository.get_by_id(fabricante_id)

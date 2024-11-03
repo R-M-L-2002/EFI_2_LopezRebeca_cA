@@ -8,7 +8,7 @@
 </head>
 <style>
     .custom-navbar {
-        background-color: #22003d; 
+        background-color: #22003d;
     }
 </style>
 <body>
@@ -19,10 +19,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <div class="nav navbar-nav">
-                    <a class="nav-item nav-link active" href="/"></a>
-                    <a class="nav-item nav-link active" href="/inicio">Inicio</a>
-                    <a class="nav-item nav-link active" href="/usuarios">Usuarios</a>
+                    <a class="nav-item nav-link active" href="{{ url_for('auth_view.lista_usuarios') }}">Usuarios</a>
+                    <a class="nav-item nav-link active" href="{{ url_for('auth_view.admin_view') }}">Administración</a>
                     <a class="nav-item nav-link active" href="/marcas">Marcas</a>
                     <a class="nav-item nav-link active" href="/fabricantes">Fabricantes</a>
                     <a class="nav-item nav-link active" href="/modelos">Modelos</a>
@@ -31,10 +29,8 @@
                     <a class="nav-item nav-link active" href="/accesorios">Accesorios</a>
                     <a class="nav-item nav-link active" href="/equipos">Equipos</a>
                     <a class="nav-item nav-link active" href="/proveedores">Proveedores</a>
-                    <a class="nav-item nav-link active" href="/inventarios">Inventario</a>
                     <a class="nav-item nav-link active" href="/stocks">Stock</a>
                     <a class="nav-item nav-link active" href="/clientes">Clientes</a>
-                    <a class="nav-item nav-link active" href="/ventas">Ventas</a>
                 </div>
             </ul>
         </div>

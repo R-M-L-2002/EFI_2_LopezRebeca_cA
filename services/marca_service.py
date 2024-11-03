@@ -16,7 +16,7 @@ class MarcaService:
         marca = self.repository.get_by_id(marca_id)
         if marca:
             marca.nombre = nombre
-            self.repository.update()
+            self.repository.update(marca)
 
     def eliminar_marca(self, marca_id):
         marca = self.repository.get_by_id(marca_id)

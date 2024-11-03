@@ -10,31 +10,41 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Fabricante</th>
+                        {% if session.get('is_admin') %}
+                        <th>ID</th>
                         <th>Editar</th>
                         <th>Borrar</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for modelo in modelos %}
                     <tr>
-                        <td>{{ modelo.nombre }}</td>
-                        <td>{{ modelo.fabricante.nombre }}</td>
-                        <td><a href="{{ url_for('editar_modelo', id=modelo.id) }}" class="btn btn-success">Editar</a></td>
+                        {% if session.get('is_admin') %}
+                        <td>{{ modelo.id }}</td>
                         <td>
-                            <form action="{{ url_for('eliminar_modelo', id=modelo.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres borrar este modelo?');">
+                            <a href="{{ url_for('modelo.editar_modelo', id=modelo.id) }}" class="btn btn-success">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('modelo.eliminar_modelo', id=modelo.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que queres borrar este modelo?');">
                                 <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
-                        </td>                    
+                        </td>  
+                        {% endif %}        
+                        <td>{{ modelo.nombre }}</td>
+                        <td>{{ modelo.fabricante.nombre }}</td>          
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
+    {% if session.get('is_admin') %}
     <div class="row mt-5">
         <div class="col-12">
-            <a href="{{ url_for('crear_modelo') }}" class="btn btn-primary mb-2">Agregar Nuevo Modelo</a>
+            <a href="{{ url_for('modelo.crear_modelo') }}" class="btn btn-primary mb-2">Agregar Nuevo Modelo</a>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -12,7 +12,7 @@ class ModeloRepository:
         db.session.add(modelo)
         db.session.commit()
 
-    def update(self):
+    def update(self, modelo):
         db.session.commit()
 
     def delete(self, modelo):

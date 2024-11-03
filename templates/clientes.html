@@ -3,30 +3,43 @@
 {% block content %}
 <div class="container">
     <h1>Clientes</h1>
-    <a href="{{ url_for('nuevo_cliente') }}" class="btn btn-primary mb-3">Nuevo Cliente</a>
-    
-    <table class="table table-bordered">
+    <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Nombre</th>
-                <th>Acciones</th>
+                {% if session.get('is_admin') %}
+                <th>ID</th>
+                <th>Editar</th>
+                <th>Borrar</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
             {% for cliente in clientes %}
             <tr>
+                {% if session.get('is_admin') %}
                 <td>{{ cliente.id }}</td>
-                <td>{{ cliente.nombre }}</td>
                 <td>
-                    <a href="{{ url_for('editar_cliente', id=cliente.id) }}" class="btn btn-warning btn-sm">Editar</a>
-                    <form action="{{ url_for('borrar_cliente', id=cliente.id) }}" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    <a href="{{ url_for('cliente.editar_cliente', id=cliente.id) }}" class="btn btn-success">Editar</a></td>
+                    <td>
+                    <form action="{{ url_for('cliente.borrar_cliente', id=cliente.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>
+                {% endif %}
+                <td>{{ cliente.nombre }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
+</div>
+<div class="row mt-5">
+<div class="col-12">
+    {% if session.get('is_admin') %}
+    <a href="{{ url_for('cliente.nuevo_cliente') }}" class="btn btn-primary mb-3">Nuevo Cliente</a>
+    {% endif %}
+</div>
+</div>
 </div>
 {% endblock %}

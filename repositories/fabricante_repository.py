@@ -12,7 +12,7 @@ class FabricanteRepository:
         db.session.add(fabricante)
         db.session.commit()
 
-    def update(self):
+    def update(self, fabricante):
         db.session.commit()
 
     def delete(self, fabricante):

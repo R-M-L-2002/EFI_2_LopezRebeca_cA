@@ -1,4 +1,4 @@
-from app import db
+from db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class Marca(db.Model):
@@ -69,8 +69,6 @@ class Proveedor(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     contacto = db.Column(db.String(100), nullable=False)
 
-    inventarios = db.relationship('Inventario', back_populates='proveedor')
-
     def __str__(self) -> str:
         return self.nombre
 
@@ -99,47 +97,23 @@ class Equipo(db.Model):
     def __str__(self) -> str:
         return str(self.id)
 
-class Inventario(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100), nullable=False)
-    proveedor_id = db.Column(db.Integer, db.ForeignKey('proveedor.id'), nullable=False)
-    cantidad = db.Column(db.Integer, nullable=False)
-    fecha = db.Column(db.Date, nullable=False)
-
-    proveedor = db.relationship('Proveedor', back_populates='inventarios')
-
-    def __str__(self) -> str:
-        return str(self.id)
-
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
 
-    ventas = db.relationship('Venta', backref='cliente', lazy=True)
-
     def __str__(self) -> str:
         return self.nombre
 
-class Venta(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    cliente_id = db.Column(db.Integer, db.ForeignKey('cliente.id'), nullable=False)
-    equipo_id = db.Column(db.Integer, db.ForeignKey('equipo.id'), nullable=False)
-    usuario_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  
-    precio = db.Column(db.Float, nullable=False)
-    fecha = db.Column(db.DateTime, default=db.func.current_timestamp())
+    username = db.Column(db.String(50), nullable=False)
+    password_hash = db.Column(db.String(300), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
-    equipo = db.relationship('Equipo', backref='ventas')
-    usuario = db.relationship('User', backref='ventas') 
 
-class User(db.Model):  
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)
-    role = db.Column(db.String(20), default='user') 
-
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
+    def to_dict(self):
+        return dict(
+            username=self.username,
+            password=self.password_hash
+        )
 

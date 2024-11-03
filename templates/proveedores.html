@@ -10,26 +10,36 @@
                     <tr>
                         <th>Nombre</th>
                         <th>Contacto</th>
+                        {% if session.get('is_admin') %}
+                        <th>ID</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for proveedor in proveedores %}
                     <tr>
-                        <td>{{ proveedor.nombre }}</td>
-                        <td>{{ proveedor.contacto }}</td>
-                        <td><a href="{{ url_for('editar_proveedor', id=proveedor.id) }}" class="btn btn-success">Editar</a></td>
+                        {% if session.get('is_admin') %}
+                        <td>{{ proveedor.id }}</td>
                         <td>
-                            <form action="{{ url_for('borrar_proveedor', id=proveedor.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este proveedor?');">
+                            <a href="{{ url_for('proveedor.editar_proveedor', id=proveedor.id) }}" class="btn btn-success">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('proveedor.borrar_proveedor', id=proveedor.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que queres eliminar este proveedor?');">
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
                         </td>
+                        {% endif %}
+                        <td>{{ proveedor.nombre }}</td>
+                        <td>{{ proveedor.contacto }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{{ url_for('nuevo_proveedor') }}" class="btn btn-primary">Agregar Nuevo Proveedor</a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('proveedor.nuevo_proveedor') }}" class="btn btn-primary">Agregar Nuevo Proveedor</a>
+            {% endif %}
         </div>
     </div>
 </div>

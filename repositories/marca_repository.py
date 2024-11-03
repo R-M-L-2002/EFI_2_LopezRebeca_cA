@@ -12,7 +12,7 @@ class MarcaRepository:
         db.session.add(marca)
         db.session.commit()
 
-    def update(self):
+    def update(self, marca):
         db.session.commit()
 
     def delete(self, marca):

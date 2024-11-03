@@ -11,27 +11,37 @@
                         <th>Cantidad</th>
                         <th>Ubicación</th>
                         <th>Equipo</th>
+                        {% if session.get('is_admin') %}
+                        <th>ID</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for stock in stocks %}
                     <tr>
-                        <td>{{ stock.cantidad }}</td>
-                        <td>{{ stock.ubicacion }}</td>
-                        <td>{{ stock.equipo.nombre }}</td>
-                        <td><a href="{{ url_for('editar_stock', id=stock.id) }}" class="btn btn-success">Editar</a></td>
+                        {% if session.get('is_admin') %}
+                        <td>{{ stock.id }}</td>
                         <td>
-                            <form action="{{ url_for('borrar_stock', id=stock.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este stock?');">
+                            <a href="{{ url_for('stock.editar_stock', id=stock.id) }}" class="btn btn-success">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('stock.borrar_stock', id=stock.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que queres eliminar este stock?');">
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
                         </td>
+                        {% endif %}
+                        <td>{{ stock.cantidad }}</td>
+                        <td>{{ stock.ubicacion }}</td>
+                        <td>{{ stock.equipo.nombre }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{{ url_for('nuevo_stock') }}" class="btn btn-primary">Agregar Nuevo Stock</a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('stock.nuevo_stock') }}" class="btn btn-primary">Agregar Nuevo Stock</a>
+            {% endif %}
         </div>
     </div>
 </div>

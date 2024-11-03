@@ -12,7 +12,7 @@ class CategoriaRepository:
         db.session.add(categoria)
         db.session.commit()
 
-    def update(self):
+    def update(self,categoria):
         db.session.commit()
 
     def delete(self, categoria):

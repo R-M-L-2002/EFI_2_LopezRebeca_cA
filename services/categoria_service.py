@@ -16,7 +16,7 @@ class CategoriaService:
         categoria = self.repository.get_by_id(categoria_id)
         if categoria:
             categoria.nombre = nombre
-            self.repository.update()
+            self.repository.update(categoria)
 
     def eliminar_categoria(self, categoria_id):
         categoria = self.repository.get_by_id(categoria_id)

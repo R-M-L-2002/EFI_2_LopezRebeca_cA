@@ -15,13 +15,27 @@
                         <th>Modelo</th>
                         <th>Característica</th>
                         <th>Accesorio</th>
+                        {% if session.get('is_admin') %}
+                        <th>ID</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for equipo in equipos %}
                     <tr>
+                        {% if session.get('is_admin') %}
+                        <td>{{ equipo.id }}</td>
+                        <td>
+                            <a href="{{ url_for('equipo.editar_equipo', id=equipo.id) }}" class="btn btn-success">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('equipo.borrar_equipo', id=equipo.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que queres eliminar este equipo?');">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                        {% endif %}
                         <td>{{ equipo.nombre }}</td>
                         <td>{{ equipo.precio }}</td>
                         <td>{{ equipo.categoria.nombre }}</td> 
@@ -29,17 +43,13 @@
                         <td>{{ equipo.modelo.nombre }}</td> 
                         <td>{{ equipo.caracteristica.tipo }}</td> 
                         <td>{{ equipo.accesorio.tipo }}</td> 
-                        <td><a href="{{ url_for('editar_equipo', id=equipo.id) }}" class="btn btn-success">Editar</a></td>
-                        <td>
-                            <form action="{{ url_for('borrar_equipo', id=equipo.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este equipo?');">
-                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                            </form>
-                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{{ url_for('crear_equipo') }}" class="btn btn-primary">Agregar Nuevo Equipo</a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('equipo.crear_equipo') }}" class="btn btn-primary">Agregar Nuevo Equipo</a>
+            {% endif %}
         </div>
     </div>
 </div>

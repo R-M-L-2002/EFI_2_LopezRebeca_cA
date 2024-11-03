@@ -8,23 +8,29 @@
             <table class="table">     
                 <thead>
                     <tr>
-                        <th>Nombre</th>
-                        <th>Origen</th>
+                        {% if session.get('is_admin') %}
+                        <th>ID</th>
                         <th>Editar</th>
                         <th>Borrar</th>
+                        {% endif %}
+                        <th>Nombre</th>
+                        <th>Origen</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for fabricante in fabricantes %}
                     <tr>
-                        <td>{{ fabricante.nombre }}</td>
-                        <td>{{ fabricante.pais_origen }}</td>
-                        <td><a href="{{ url_for('editar_fabricante', id=fabricante.id) }}" class="btn btn-success">Editar</a></td>
+                        {% if session.get('is_admin') %}
+                        <td>{{ fabricante.id }}</td>
+                        <td><a href="{{ url_for('fabricante.editar_fabricante', id=fabricante.id) }}" class="btn btn-success">Editar</a></td>
                         <td>
-                            <form action="{{ url_for('eliminar_fabricante', id=fabricante.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres borrar este fabricante?');">
+                            <form action="{{ url_for('fabricante.eliminar_fabricante', id=fabricante.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que queres borrar este fabricante?');">
                                 <button type="submit" class="btn btn-danger">Borrar</button>
                             </form>
-                        </td>                    
+                        </td>
+                        {% endif %}
+                        <td>{{ fabricante.nombre }}</td>
+                        <td>{{ fabricante.pais_origen }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -33,7 +39,9 @@
     </div>
     <div class="row mt-5">
         <div class="col-12">
-            <a href="{{ url_for('crear_fabricante') }}" class="btn btn-primary mb-2">Agregar Nuevo Fabricante</a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('fabricante.crear_fabricante') }}" class="btn btn-primary mb-2">Agregar Nuevo Fabricante</a>
+            {% endif %}
         </div>
     </div>
 </div>

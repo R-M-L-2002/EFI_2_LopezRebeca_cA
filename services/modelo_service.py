@@ -17,7 +17,7 @@ class ModeloService:
         if modelo:
             modelo.nombre = nombre
             modelo.fabricante_id = fabricante_id
-            self.repository.update()
+            self.repository.update(modelo) 
 
     def eliminar_modelo(self, modelo_id):
         modelo = self.repository.get_by_id(modelo_id)

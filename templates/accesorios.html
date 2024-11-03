@@ -10,26 +10,36 @@
                     <tr>
                         <th>Tipo</th>
                         <th>Modelo</th>
+                        {% if session.get('is_admin') %}
+                        <th>ID</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for accesorio in accesorios %}
                     <tr>
-                        <td>{{ accesorio.tipo }}</td>
-                        <td>{{ accesorio.modelo.nombre }}</td> 
-                        <td><a href="{{ url_for('editar_accesorio', id=accesorio.id) }}" class="btn btn-success">Editar</a></td>
+                        {% if session.get('is_admin') %}
+                        <td>{{ accesorio.id }}</td>
                         <td>
-                            <form action="{{ url_for('borrar_accesorio', id=accesorio.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este accesorio?');">
+                            <a href="{{ url_for('accesorio.editar_accesorio', id=accesorio.id) }}" class="btn btn-success">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{ url_for('accesorio.borrar_accesorio', id=accesorio.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que queres eliminar este accesorio?');">
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
                         </td>
+                        {% endif %}
+                        <td>{{ accesorio.tipo }}</td>
+                        <td>{{ accesorio.modelo.nombre }}</td> 
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{{ url_for('nuevo_accesorio') }}" class="btn btn-primary">Agregar Nuevo Accesorio</a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('accesorio.nuevo_accesorio') }}" class="btn btn-primary">Agregar Nuevo Accesorio</a>
+            {% endif %}
         </div>
     </div>
 </div>
