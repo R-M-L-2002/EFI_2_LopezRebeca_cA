@@ -4,24 +4,32 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4>Listado de Fabricantes</h4>
+            <h4>Fabricantes</h4>
             <table class="table">     
                 <thead>
                     <tr>
-                        {% if session.get('is_admin') %}
+                        {% if not session.get('is_admin') %}
+                        <th>Nombre</th>
+                        <th>Origen</th>
+                        {% else %}
                         <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Origen</th>
                         <th>Editar</th>
                         <th>Borrar</th>
                         {% endif %}
-                        <th>Nombre</th>
-                        <th>Origen</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for fabricante in fabricantes %}
                     <tr>
-                        {% if session.get('is_admin') %}
+                        {% if not session.get('is_admin') %}
+                        <td>{{ fabricante.nombre }}</td>
+                        <td>{{ fabricante.pais_origen }}</td>
+                        {% else %}
                         <td>{{ fabricante.id }}</td>
+                        <td>{{ fabricante.nombre }}</td>
+                        <td>{{ fabricante.pais_origen }}</td>
                         <td><a href="{{ url_for('fabricante.editar_fabricante', id=fabricante.id) }}" class="btn btn-success">Editar</a></td>
                         <td>
                             <form action="{{ url_for('fabricante.eliminar_fabricante', id=fabricante.id) }}" method="post" onsubmit="return confirm('¿Estás seguro de que queres borrar este fabricante?');">
@@ -29,8 +37,6 @@
                             </form>
                         </td>
                         {% endif %}
-                        <td>{{ fabricante.nombre }}</td>
-                        <td>{{ fabricante.pais_origen }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -1,6 +1,6 @@
 import os
 import click
-from dotenv import load_dotenv
+from dotenv import load_dotenv  
 from flask import Flask, render_template
 from flask_migrate import Migrate 
 from flask_jwt_extended import JWTManager
@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash
 from models import User
 from db import db 
 
-load_dotenv()
+load_dotenv() 
 
 app = Flask(__name__)
 

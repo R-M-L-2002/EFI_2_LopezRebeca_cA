@@ -4,14 +4,17 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4>Listado de Accesorios</h4>
+            <h4>Accesorios</h4>
             <table class="table">
                 <thead>
                     <tr>
+                        {% if not session.get('is_admin') %}
                         <th>Tipo</th>
                         <th>Modelo</th>
-                        {% if session.get('is_admin') %}
+                        {% else %}
                         <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Modelo</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                         {% endif %}
@@ -20,8 +23,13 @@
                 <tbody>
                     {% for accesorio in accesorios %}
                     <tr>
-                        {% if session.get('is_admin') %}
+                        {% if not session.get('is_admin') %}
+                        <td>{{ accesorio.tipo }}</td>
+                        <td>{{ accesorio.modelo.nombre }}</td> 
+                        {% else %}
                         <td>{{ accesorio.id }}</td>
+                        <td>{{ accesorio.tipo }}</td>
+                        <td>{{ accesorio.modelo.nombre }}</td> 
                         <td>
                             <a href="{{ url_for('accesorio.editar_accesorio', id=accesorio.id) }}" class="btn btn-success">Editar</a>
                         </td>
@@ -31,8 +39,6 @@
                             </form>
                         </td>
                         {% endif %}
-                        <td>{{ accesorio.tipo }}</td>
-                        <td>{{ accesorio.modelo.nombre }}</td> 
                     </tr>
                     {% endfor %}
                 </tbody>

@@ -4,14 +4,17 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4>Listado de Proveedores</h4>
+            <h4>Proveedores</h4>
             <table class="table">
                 <thead>
                     <tr>
+                        {% if not session.get('is_admin') %}
                         <th>Nombre</th>
                         <th>Contacto</th>
-                        {% if session.get('is_admin') %}
+                        {% else %}
                         <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Contacto</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                         {% endif %}
@@ -20,8 +23,13 @@
                 <tbody>
                     {% for proveedor in proveedores %}
                     <tr>
-                        {% if session.get('is_admin') %}
+                        {% if not session.get('is_admin') %}
+                        <td>{{ proveedor.nombre }}</td>
+                        <td>{{ proveedor.contacto }}</td>
+                        {% else %}
                         <td>{{ proveedor.id }}</td>
+                        <td>{{ proveedor.nombre }}</td>
+                        <td>{{ proveedor.contacto }}</td>
                         <td>
                             <a href="{{ url_for('proveedor.editar_proveedor', id=proveedor.id) }}" class="btn btn-success">Editar</a>
                         </td>
@@ -31,8 +39,6 @@
                             </form>
                         </td>
                         {% endif %}
-                        <td>{{ proveedor.nombre }}</td>
-                        <td>{{ proveedor.contacto }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

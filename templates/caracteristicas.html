@@ -4,15 +4,19 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4>Listado de Características</h4>
+            <h4>Características</h4>
             <table class="table">
                 <thead>
                     <tr>
+                        {% if not session.get('is_admin') %}
                         <th>Tipo</th>
                         <th>Descripción</th>
                         <th>Modelo</th>
-                        {% if session.get('is_admin') %}
+                        {% else %}
                         <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Modelo</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                         {% endif %}
@@ -21,8 +25,15 @@
                 <tbody>
                     {% for caracteristica in caracteristicas %}
                     <tr>
-                        {% if session.get('is_admin') %}
+                        {% if not session.get('is_admin') %}
+                        <td>{{ caracteristica.tipo }}</td>
+                        <td>{{ caracteristica.descripcion }}</td>
+                        <td>{{ caracteristica.modelo.nombre }}</td>
+                        {% else %}
                         <td>{{ caracteristica.id }}</td>
+                        <td>{{ caracteristica.tipo }}</td>
+                        <td>{{ caracteristica.descripcion }}</td>
+                        <td>{{ caracteristica.modelo.nombre }}</td>
                         <td>
                             <a href="{{ url_for('caracteristica.editar_caracteristica', id=caracteristica.id) }}" class="btn btn-success">Editar</a>
                         </td>
@@ -32,9 +43,6 @@
                             </form>
                         </td>
                         {% endif %}
-                        <td>{{ caracteristica.tipo }}</td>
-                        <td>{{ caracteristica.descripcion }}</td>
-                        <td>{{ caracteristica.modelo.nombre }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

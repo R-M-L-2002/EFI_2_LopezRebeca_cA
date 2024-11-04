@@ -6,9 +6,11 @@
     <table class="table">
         <thead>
             <tr>
+                {% if not session.get('is_admin') %}
                 <th>Nombre</th>
-                {% if session.get('is_admin') %}
+                {% else %}
                 <th>ID</th>
+                <th>Nombre</th>
                 <th>Editar</th>
                 <th>Borrar</th>
                 {% endif %}
@@ -17,29 +19,26 @@
         <tbody>
             {% for cliente in clientes %}
             <tr>
-                {% if session.get('is_admin') %}
+                {% if not session.get('is_admin') %}
+                <td>{{ cliente.nombre }}</td>
+                {% else %}
                 <td>{{ cliente.id }}</td>
+                <td>{{ cliente.nombre }}</td>
                 <td>
-                    <a href="{{ url_for('cliente.editar_cliente', id=cliente.id) }}" class="btn btn-success">Editar</a></td>
-                    <td>
+                    <a href="{{ url_for('cliente.editar_cliente', id=cliente.id) }}" class="btn btn-success">Editar</a>
+                </td>
+                <td>
                     <form action="{{ url_for('cliente.borrar_cliente', id=cliente.id) }}" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger">Eliminar</button>
                     </form>
                 </td>
                 {% endif %}
-                <td>{{ cliente.nombre }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-</div>
-</div>
-<div class="row mt-5">
-<div class="col-12">
+
     {% if session.get('is_admin') %}
     <a href="{{ url_for('cliente.nuevo_cliente') }}" class="btn btn-primary mb-3">Nuevo Cliente</a>
     {% endif %}
-</div>
-</div>
-</div>
 {% endblock %}

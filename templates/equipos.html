@@ -8,6 +8,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        {% if not session.get('is_admin') %}
                         <th>Nombre</th>
                         <th>Precio</th>
                         <th>Categoría</th>
@@ -15,8 +16,15 @@
                         <th>Modelo</th>
                         <th>Característica</th>
                         <th>Accesorio</th>
-                        {% if session.get('is_admin') %}
+                        {% else %}
                         <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Categoría</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Característica</th>
+                        <th>Accesorio</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                         {% endif %}
@@ -25,8 +33,23 @@
                 <tbody>
                     {% for equipo in equipos %}
                     <tr>
-                        {% if session.get('is_admin') %}
+                        {% if not session.get('is_admin') %}
+                        <td>{{ equipo.nombre }}</td>
+                        <td>{{ equipo.precio }}</td>
+                        <td>{{ equipo.categoria.nombre }}</td> 
+                        <td>{{ equipo.marca.nombre }}</td> 
+                        <td>{{ equipo.modelo.nombre }}</td> 
+                        <td>{{ equipo.caracteristica.tipo }}</td> 
+                        <td>{{ equipo.accesorio.tipo }}</td> 
+                        {% else %}
                         <td>{{ equipo.id }}</td>
+                        <td>{{ equipo.nombre }}</td>
+                        <td>{{ equipo.precio }}</td>
+                        <td>{{ equipo.categoria.nombre }}</td> 
+                        <td>{{ equipo.marca.nombre }}</td> 
+                        <td>{{ equipo.modelo.nombre }}</td> 
+                        <td>{{ equipo.caracteristica.tipo }}</td> 
+                        <td>{{ equipo.accesorio.tipo }}</td> 
                         <td>
                             <a href="{{ url_for('equipo.editar_equipo', id=equipo.id) }}" class="btn btn-success">Editar</a>
                         </td>
@@ -36,13 +59,6 @@
                             </form>
                         </td>
                         {% endif %}
-                        <td>{{ equipo.nombre }}</td>
-                        <td>{{ equipo.precio }}</td>
-                        <td>{{ equipo.categoria.nombre }}</td> 
-                        <td>{{ equipo.marca.nombre }}</td> 
-                        <td>{{ equipo.modelo.nombre }}</td> 
-                        <td>{{ equipo.caracteristica.tipo }}</td> 
-                        <td>{{ equipo.accesorio.tipo }}</td> 
                     </tr>
                     {% endfor %}
                 </tbody>
