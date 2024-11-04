@@ -33,7 +33,7 @@ def create_admin(username, password):
     db.session.commit()
     print(f"Usuario administrador '{username}' creado exitosamente.")
 # Para crear un nuevo admin se debe escribir en terminal:
-# flask create_admin "usuario" "contraseña"
+# flask create-admin "usuario" "contraseña" (comillas inclusive)
 
 @app.route('/')
 def index():
