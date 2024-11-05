@@ -1,16 +1,31 @@
-# Clonar el proyecto
-https://github.com/R-M-L-2002/EFI_2_LopezRebeca_cA.git
+# Endpoints API Documentacion
 
-cd EFI_2_LopezRebeca_cA
+A continuación se describen los principales endpoints de la API relacionados con la gestión de accesorios.
 
-# Crear el entorno virtual
-python3 -m venv env
+## Accesorios
 
-# Activar el entorno virtual
-source env/bin/activate
+### Listar todos los accesorios
 
-# Instalar requerimientos
-pip install -r requirements.txt
+- **Método:** GET  
+- **Endpoint:** `/accesorios`
 
-# Correr el proyecto
-flask run --reload
+**Descripción:**  
+Lista todos los accesorios disponibles.
+
+**Ejemplo de respuesta:**
+
+```html
+[
+    {
+        "id": 1,
+        "tipo": "Cargador",
+        "modelo_id": 3
+    },
+    {
+        "id": 2,
+        "tipo": "Audífonos",
+        "modelo_id": 2
+    }
+    // Otros objetos de accesorio
+]
+
