@@ -1,6 +1,7 @@
 from models import Proveedor
 from app import db
 
+
 class ProveedorRepository:
     def get_all(self):
         return Proveedor.query.all()

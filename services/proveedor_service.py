@@ -1,6 +1,7 @@
 from repositories.proveedor_repository import ProveedorRepository
 from models import Proveedor
 
+
 class ProveedorService:
     def __init__(self):
         self.repository = ProveedorRepository()

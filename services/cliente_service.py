@@ -1,6 +1,7 @@
 from repositories.cliente_repository import ClienteRepository
 from models import Cliente
 
+
 class ClienteService:
     def __init__(self):
         self.repository = ClienteRepository()

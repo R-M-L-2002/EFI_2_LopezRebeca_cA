@@ -1,6 +1,7 @@
 from repositories.caracteristica_repository import CaracteristicaRepository
 from models import Caracteristica
 
+
 class CaracteristicaService:
     def __init__(self):
         self.repository = CaracteristicaRepository()
@@ -9,7 +10,9 @@ class CaracteristicaService:
         return self.repository.get_all()
 
     def crear_caracteristica(self, tipo, descripcion, modelo_id):
-        nueva_caracteristica = Caracteristica(tipo=tipo, descripcion=descripcion, modelo_id=modelo_id)
+        nueva_caracteristica = Caracteristica(
+            tipo=tipo, descripcion=descripcion, modelo_id=modelo_id
+        )
         self.repository.add(nueva_caracteristica)
 
     def editar_caracteristica(self, caracteristica_id, tipo, descripcion, modelo_id):

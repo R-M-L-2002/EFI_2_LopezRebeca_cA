@@ -1,6 +1,7 @@
 from repositories.modelo_repository import ModeloRepository
 from models import Modelo
 
+
 class ModeloService:
     def __init__(self):
         self.repository = ModeloRepository()
@@ -17,7 +18,7 @@ class ModeloService:
         if modelo:
             modelo.nombre = nombre
             modelo.fabricante_id = fabricante_id
-            self.repository.update(modelo) 
+            self.repository.update(modelo)
 
     def eliminar_modelo(self, modelo_id):
         modelo = self.repository.get_by_id(modelo_id)

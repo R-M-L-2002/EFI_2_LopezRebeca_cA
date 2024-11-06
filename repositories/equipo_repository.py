@@ -1,6 +1,7 @@
 from models import Equipo
 from app import db
 
+
 class EquipoRepository:
     def get_all(self):
         return Equipo.query.all()

@@ -1,6 +1,7 @@
 from repositories.marca_repository import MarcaRepository
 from models import Marca
 
+
 class MarcaService:
     def __init__(self):
         self.repository = MarcaRepository()
@@ -22,4 +23,3 @@ class MarcaService:
         marca = self.repository.get_by_id(marca_id)
         if marca:
             self.repository.delete(marca)
-

@@ -1,7 +1,18 @@
 from app import ma
-from models import (Marca, Fabricante, Modelo, Categoria, Caracteristica, 
-                    Stock, Proveedor, Accesorio, Equipo,
-                    Cliente, User)
+from models import (
+    Marca,
+    Fabricante,
+    Modelo,
+    Categoria,
+    Caracteristica,
+    Stock,
+    Proveedor,
+    Accesorio,
+    Equipo,
+    Cliente,
+    User,
+)
+
 
 class MarcaSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -10,13 +21,15 @@ class MarcaSchema(ma.SQLAlchemyAutoSchema):
     id = ma.auto_field()
     nombre = ma.auto_field(required=True)
 
+
 class FabricanteSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Fabricante
-        
+
     id = ma.auto_field()
     nombre = ma.auto_field(required=True)
     pais_origen = ma.auto_field(required=True)
+
 
 class ModeloSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -26,12 +39,14 @@ class ModeloSchema(ma.SQLAlchemyAutoSchema):
     nombre = ma.auto_field(required=True)
     fabricante_id = ma.auto_field(required=True)
 
+
 class CategoriaSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Categoria
-        
+
     id = ma.auto_field()
     nombre = ma.auto_field(required=True)
+
 
 class CaracteristicaSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -39,9 +54,10 @@ class CaracteristicaSchema(ma.SQLAlchemyAutoSchema):
 
     class Meta:
         model = Categoria
-        
+
     id = ma.auto_field()
     nombre = ma.auto_field(required=True)
+
 
 class CaracteristicaSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -51,6 +67,7 @@ class CaracteristicaSchema(ma.SQLAlchemyAutoSchema):
     tipo = ma.auto_field(required=True)
     descripcion = ma.auto_field(required=True)
     modelo_id = ma.auto_field(required=True)
+
 
 class StockSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -62,6 +79,7 @@ class StockSchema(ma.SQLAlchemyAutoSchema):
     equipo_id = ma.auto_field(required=True)
     disponible = ma.auto_field()
 
+
 class ProveedorSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Proveedor
@@ -70,6 +88,7 @@ class ProveedorSchema(ma.SQLAlchemyAutoSchema):
     nombre = ma.auto_field(required=True)
     contacto = ma.auto_field(required=True)
 
+
 class AccesorioSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Accesorio
@@ -77,6 +96,7 @@ class AccesorioSchema(ma.SQLAlchemyAutoSchema):
     id = ma.auto_field()
     tipo = ma.auto_field(required=True)
     modelo_id = ma.auto_field(required=True)
+
 
 class EquipoSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -90,6 +110,7 @@ class EquipoSchema(ma.SQLAlchemyAutoSchema):
     modelo_id = ma.auto_field(required=True)
     caracteristica_id = ma.auto_field(required=True)
     accesorio_id = ma.auto_field(required=False)
+
 
 class ClienteSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
@@ -107,6 +128,7 @@ class UserSchema(ma.SQLAlchemySchema):
     username = ma.auto_field()
     password_hash = ma.auto_field()
     is_admin = ma.auto_field()
+
 
 class UserMinimalSchema(ma.SQLAlchemySchema):
     class Meta:

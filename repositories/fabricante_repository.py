@@ -1,6 +1,7 @@
 from models import Fabricante
 from app import db
 
+
 class FabricanteRepository:
     def get_all(self):
         return Fabricante.query.all()

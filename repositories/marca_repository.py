@@ -1,6 +1,7 @@
 from models import Marca
 from app import db
 
+
 class MarcaRepository:
     def get_all(self):
         return Marca.query.all()

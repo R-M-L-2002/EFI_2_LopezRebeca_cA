@@ -1,6 +1,7 @@
 from models import Stock
 from app import db
 
+
 class StockRepository:
     def get_all(self):
         return Stock.query.all()

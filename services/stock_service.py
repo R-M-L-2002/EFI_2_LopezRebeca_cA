@@ -1,6 +1,7 @@
 from repositories.stock_repository import StockRepository
 from models import Stock
 
+
 class StockService:
     def __init__(self):
         self.repository = StockRepository()

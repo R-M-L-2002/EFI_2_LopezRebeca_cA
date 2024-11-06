@@ -1,6 +1,7 @@
 from models import Categoria
 from app import db
 
+
 class CategoriaRepository:
     def get_all(self):
         return Categoria.query.all()
@@ -12,7 +13,7 @@ class CategoriaRepository:
         db.session.add(categoria)
         db.session.commit()
 
-    def update(self,categoria):
+    def update(self, categoria):
         db.session.commit()
 
     def delete(self, categoria):

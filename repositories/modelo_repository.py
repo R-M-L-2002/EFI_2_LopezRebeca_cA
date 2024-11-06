@@ -1,6 +1,7 @@
 from models import Modelo
 from app import db
 
+
 class ModeloRepository:
     def get_all(self):
         return Modelo.query.all()

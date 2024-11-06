@@ -1,6 +1,7 @@
 from repositories.fabricante_repository import FabricanteRepository
 from models import Fabricante
 
+
 class FabricanteService:
     def __init__(self):
         self.repository = FabricanteRepository()

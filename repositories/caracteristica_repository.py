@@ -1,6 +1,7 @@
 from models import Caracteristica
 from app import db
 
+
 class CaracteristicaRepository:
     def get_all(self):
         return Caracteristica.query.all()

@@ -1,6 +1,7 @@
 from models import User
 from app import db
 
+
 class UserRepository:
     def __init__(self):
         self.session = db.session

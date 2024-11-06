@@ -1,6 +1,7 @@
 from models import Accesorio
 from app import db
 
+
 class AccesorioRepository:
     def get_all(self):
         return Accesorio.query.all()
